@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: idempotent-payment-gateway
+
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/postgres_db}
+    username: ${POSTGRES_USER:admin}
+    password: ${POSTGRES_PASSWORD:123}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,info
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:SecurePaySecretKeyForJWTGenerationWhichMustBeAtLeast256BitsLong}
+    expiration-ms: 86400000 # 24 hours
+  cors:
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:3000}
+
+logging:
+  pattern:
+    level: "%5p [requestId=%X{requestId}] [txnId=%X{transactionId}] [accId=%X{accountId}] [idemKey=%X{idempotencyKey}]"

@@ -1,0 +1,34 @@
+### Java (Spring Boot) ###
+.mtj.tmp/
+*.class
+*.jar
+*.war
+*.ear
+*.factorypath
+.settings/
+.classpath
+.project
+bin/
+build/
+target/
+.gradle/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+### Docker & Local Environment ###
+.env
+.docker/
+docker-compose.override.yml
+*.log
+logs/
+
+### OS Specific ###
+.DS_Store
+Thumbs.db
+
+### IDE specific ###
+.vscode/
+*.sublime-project
+*.sublime-workspace
